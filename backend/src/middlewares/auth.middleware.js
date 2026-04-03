@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/asynchandler.js";
 import error from "../utils/error_structurer.js"
 import jwt from "jsonwebtoken";
 export const verifyJWT=asyncHandler(async(req,res,next)=>{
-    const token= req.cookies?.accessToken || req.headers("Authorization")?.replace("Bearer ","")
+    const token= req.cookies?.accessToken || req.headers["authorization"]?.replace("Bearer ","")
     if(!token)
         throw new error(401,"Not authorized, token missing");
        const decodedToken= jwt.verify(token,process.env.JWT_SECRET)
