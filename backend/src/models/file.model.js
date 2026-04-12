@@ -1,11 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
-const sheetschema=new Schema({
-    sheetlink:{
+const fileschema=new Schema({
+    filelink:{
         type:String,
         required:true
     },
-    sheetname:{
+    filename:{
         type:String,
         required:true
     },
@@ -22,12 +22,12 @@ const sheetschema=new Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Folder",
     },
-    filepreviewsheets:{
+    filepreview:{
         type: String , //url cloudinary
-        default:"https://res.cloudinary.com/dzcmadjlq/sheet/upload/v1696543783/ClauseValidator/default_pdf_oyh3v0.png"
+        default:"https://res.cloudinary.com/dzcmadjlq/file/upload/v1696543783/ClauseValidator/default_pdf_oyh3v0.png"
     }
 },{
     timestamps:true
 })
-sheetschema.plugin(mongooseAggregatePaginate);
-export const Sheet=mongoose.model("Sheet",sheetschema);
+fileschema.plugin(mongooseAggregatePaginate);
+export const File=mongoose.model("File",fileschema);

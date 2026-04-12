@@ -1,6 +1,6 @@
 # LegalEye Backend
 
-Complete Express + MongoDB backend for LegalEye with user authentication flows (register, login, logout, token refresh), profile management, secure file upload, and fully documented route-based APIs for users, folders, and sheets.
+Complete Express + MongoDB backend for LegalEye with user authentication flows (register, login, logout, token refresh), profile management, secure file upload, and fully documented route-based APIs for users, folders, and files.
 
 > Note: LegalEye is an ongoing project and features/routes may continue to evolve.
 
@@ -28,8 +28,8 @@ Complete Express + MongoDB backend for LegalEye with user authentication flows (
 - Create folder
 - List all folders for logged-in user
 - Delete folder
-- List all sheets in a folder
-- Upload sheet file to a folder
+- List all files in a folder
+- Upload file to a folder
 
 ## API Base
 
@@ -40,7 +40,7 @@ Mounted route groups:
 
 - /api/v1/users
 - /api/v1/folders
-- /api/v1/sheets
+- /api/v1/files
 
 ## Authentication
 
@@ -86,18 +86,19 @@ Error middleware returns:
 
 ### Folders
 
-| Method | Route                                          | Secured | Body/Params    | Notes                                |
-| ------ | ---------------------------------------------- | ------- | -------------- | ------------------------------------ |
-| POST   | /api/v1/folders/createfolder                   | Yes     | foldername     | Create folder for logged-in user     |
-| GET    | /api/v1/folders/getalluserfolders              | Yes     | none           | List folders of current user         |
-| DELETE | /api/v1/folders/deletefolder/:folderid         | Yes     | folderid param | Deletes folder and associated sheets |
-| GET    | /api/v1/folders/getallsheetsinfolder/:folderid | Yes     | folderid param | List sheets in folder                |
+| Method | Route                                         | Secured | Body/Params    | Notes                               |
+| ------ | --------------------------------------------- | ------- | -------------- | ----------------------------------- |
+| POST   | /api/v1/folders/createfolder                  | Yes     | foldername     | Create folder for logged-in user    |
+| GET    | /api/v1/folders/getalluserfolders             | Yes     | none           | List folders of current user        |
+| DELETE | /api/v1/folders/deletefolder/:folderid        | Yes     | folderid param | Deletes folder and associated files |
+| GET    | /api/v1/folders/getallfilesinfolder/:folderid | Yes     | folderid param | List files in folder                |
 
-### Sheets
+### Files
 
-| Method | Route                                | Secured | Body/Params                     | Notes                             |
-| ------ | ------------------------------------ | ------- | ------------------------------- | --------------------------------- |
-| POST   | /api/v1/sheets/uploadsheet/:folderid | Yes     | folderid param + multipart file | Uploads sheet and stores metadata |
+| Method | Route                              | Secured | Body/Params                          | Notes                             |
+| ------ | ---------------------------------- | ------- | ------------------------------------ | --------------------------------- |
+| GET    | /api/v1/files/getalluserfiles      | Yes     | query: page, limit, sortby, sorttype | List all files for logged-in user |
+| POST   | /api/v1/files/uploadfile/:folderid | Yes     | folderid param + multipart file      | Uploads file and stores metadata  |
 
 Secured = requires valid access token (cookie or Bearer token).
 No\* = endpoint itself is public but needs a valid refresh token cookie.

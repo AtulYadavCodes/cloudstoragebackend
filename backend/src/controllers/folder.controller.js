@@ -1,4 +1,4 @@
-import { Sheet } from "../models/sheet.model.js";
+import { File } from "../models/file.model.js";
 import { Folder } from "../models/folder.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import errorhandler from "../utils/errorhandler.js";
@@ -32,20 +32,20 @@ const deletefolder=asyncHandler(async(req,res)=>{
     if(!folder){
         throw new errorhandler(404,"folder not found",[]);
     }
-    const sheetsinfolder=Sheet.find({folder:folderid}).select("_id");
-    await Sheet.deleteMany({_id:{$in:sheetsinfolder}});
+    const filesinfolder=File.find({folder:folderid}).select("_id");
+    await File.deleteMany({_id:{$in:filesinfolder}});
     const deletedfolder=await Folder.findByIdAndDelete(folderid);
     return res.status(200).json(new responseHandler(200,"folder deleted successfully",deletedfolder._id));
         
 })
 
-const allsheetsinfolder=asyncHandler(async(req,res)=>{
+const allfilesinfolder=asyncHandler(async(req,res)=>{
     const folderid=new mongoose.Types.ObjectId(req.params.folderid);
-    const sheets=await Sheet.find({folder:folderid})
-    if(!sheets||sheets.length===0){
+    const files=await File.find({folder:folderid})
+    if(!files||files.length===0){
         throw new errorhandler(404,"folder not found",[]);
     }
-    return res.status(200).json(new responseHandler(200,"sheets in folder fetched successfully",sheets));
+    return res.status(200).json(new responseHandler(200,"files in folder fetched successfully",files));
 });
 
-export {createfolder,getalluserfolders,deletefolder,allsheetsinfolder};
+export {createfolder,getalluserfolders,deletefolder,allfilesinfolder};

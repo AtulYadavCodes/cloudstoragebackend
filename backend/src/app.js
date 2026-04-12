@@ -14,10 +14,10 @@ app.set('trust proxy', 1);
 
 //routes
 import Userrouter from './routes/user.routes.js';
-import Sheetrouter from './routes/sheet.routes.js';
+import Filesrouter from './routes/file.routes.js';
 import Folderrouter from './routes/folder.routes.js';
 app.use('/api/v1/users',Userrouter)
-app.use('/api/v1/sheets',Sheetrouter)
+app.use('/api/v1/files',Filesrouter)
 app.use('/api/v1/folders',Folderrouter)
 
 const errormiddleware=(err,req,res,next)=>{
