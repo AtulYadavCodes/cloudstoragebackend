@@ -9,13 +9,16 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.static('public'));
+app.set('trust proxy', 1);
 
 
 //routes
-import Userrouter from './routes/user.routes.js'
-import pdfrouter from './routes/pdf.routes.js'
+import Userrouter from './routes/user.routes.js';
+import Sheetrouter from './routes/sheet.routes.js';
+import Folderrouter from './routes/folder.routes.js';
 app.use('/api/v1/users',Userrouter)
-app.use('/api/v1/pdfs',pdfrouter)
+app.use('/api/v1/sheets',Sheetrouter)
+app.use('/api/v1/folders',Folderrouter)
 
 const errormiddleware=(err,req,res,next)=>{
     const statusCode=err.statusCode||500;
