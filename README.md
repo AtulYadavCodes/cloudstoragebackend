@@ -95,10 +95,10 @@ Error middleware returns:
 
 ### Files
 
-| Method | Route                              | Secured | Body/Params                          | Notes                             |
-| ------ | ---------------------------------- | ------- | ------------------------------------ | --------------------------------- |
-| GET    | /api/v1/files/getalluserfiles      | Yes     | query: page, limit, sortby, sorttype | List all files for logged-in user |
-| POST   | /api/v1/files/uploadfile/:folderid | Yes     | folderid param + multipart file      | Uploads file and stores metadata  |
+| Method | Route                               | Secured | Body/Params                          | Notes                                          |
+| ------ | ----------------------------------- | ------- | ------------------------------------ | ---------------------------------------------- |
+| GET    | /api/v1/files/getalluserfiles       | Yes     | query: page, limit, sortby, sorttype | List all files for logged-in user              |
+| POST   | /api/v1/files/uploadfile/:folderid? | Yes     | multipart file; folderid optional    | Uploads file with or without folder assignment |
 
 Secured = requires valid access token (cookie or Bearer token).
 No\* = endpoint itself is public but needs a valid refresh token cookie.
