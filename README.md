@@ -1,5 +1,12 @@
 # Cloud Storage Backend
 
+![Node.js](https://img.shields.io/badge/Node.js-22+-3C873A?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5.x-111111?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-13AA52?style=for-the-badge&logo=mongodb&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-Rate%20Limit-D82C20?style=for-the-badge&logo=redis&logoColor=white)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-File%20Storage-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
+![Auth](https://img.shields.io/badge/Auth-JWT-F59E0B?style=for-the-badge)
+
 Complete Express + MongoDB backend for cloud storage with user authentication flows (register, login, logout, token refresh), profile management, secure file upload, and fully documented route-based APIs for users, folders, and files.
 
 > Note: This cloud storage project is ongoing and features/routes may continue to evolve.
@@ -155,6 +162,20 @@ Server runs on configured PORT (current code defaults effectively to 3000 in ind
 - Centralized error middleware
 - CORS origin configuration via environment variable
 - Sensitive config in environment variables
+
+## Login Rate Limit
+
+Rate limiting is applied to the login endpoint to reduce brute-force attempts.
+
+- Endpoint: `POST /api/v1/users/login`
+- Strategy: Redis key by `email + ip`
+- Limit: 5 failed attempts
+- Window: 60 seconds
+- Behavior: after limit is reached, API returns `429 Too many login attempts`
+
+Middleware path:
+
+- `backend/src/middlewares/ratelim.middleware.js`
 
 ## Important Notes and Current Gaps
 
